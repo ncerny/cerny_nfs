@@ -7,3 +7,4 @@ long_description 'Installs/Configures cerny_nfs'
 version '0.1.1'
 
 depends 'nfs'
+depends 'firewalld'

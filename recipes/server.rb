@@ -24,3 +24,35 @@ service 'rpcbind' do
 end
 
 include_recipe 'nfs::server'
+
+firewalld_port '111/tcp' do
+  zone 'internal'
+end
+
+firewalld_port '111/udp' do
+  zone 'internal'
+end
+
+firewalld_port '32767/tcp' do
+  zone 'internal'
+end
+
+firewalld_port '32767/udp' do
+  zone 'internal'
+end
+
+firewalld_port '2049/tcp' do
+  zone 'internal'
+end
+
+firewalld_port '2049/udp' do
+  zone 'internal'
+end
+
+firewalld_port '32768/tcp' do
+  zone 'internal'
+end
+
+firewalld_port '32768/udp' do
+  zone 'internal'
+end
