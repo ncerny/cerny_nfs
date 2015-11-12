@@ -38,7 +38,7 @@ node['nfs']['port'].each do |_, port|
   end
 end
 
-nfs_export '/exports/' do
+nfs_export '/exports' do
   network '172.16.200.0/24'
   writeable false
   sync true
