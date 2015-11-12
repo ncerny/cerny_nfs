@@ -16,4 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+include_recipe 'nfs::_common'
+include_recipe 'nfs::_idmap'
+
+service 'rpcbind' do
+  action [:enable, :start]
+end
+
 include_recipe 'nfs::server'
