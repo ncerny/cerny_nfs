@@ -38,9 +38,23 @@ node['nfs']['port'].each do |_, port|
   end
 end
 
-nfs_export '/exports' do
+nfs_export '/exports/' do
   network '172.16.200.0/24'
-  writeable true
+  writeable false
   sync true
   options %w( no_root_squash no_all_squash fsid=0 )
+end
+
+nfs_export '/exports/iso' do
+  network %w( 172.16.200.0/24 172.16.201.0/24 172.16.202.0/24 )
+  writeable true
+  sync true
+  options %w( no_root_squash no_all_squash )
+end
+
+nfs_export '/exports/vcenter' do
+  network %w( 172.16.201.21 172.16.201.22 172.16.202.21 172.16.202.22 )
+  writeable true
+  sync true
+  options %w( no_root_squash no_all_squash )
 end
