@@ -25,7 +25,7 @@ end
 
 include_recipe 'nfs::server'
 
-node['nfs']['ports'].each do |_, port|
+node['nfs']['port'].each do |_, port|
   firewalld_port "#{port}/tcp" do
     zone 'internal'
   end
