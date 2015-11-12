@@ -25,13 +25,15 @@ end
 
 include_recipe 'nfs::server'
 
+include_recipe 'firewalld'
+
 node['nfs']['port'].each do |_, port|
   firewalld_port "#{port}/tcp" do
     zone 'internal'
+    notifies :reload, 'service[firewalld]', :delayed
   end
   firewalld_port "#{port}/udp" do
     zone 'internal'
+    notifies :reload, 'service[firewalld]', :delayed
   end
 end
-
-execute 'firewall-cmd --runtime-to-permanent'
