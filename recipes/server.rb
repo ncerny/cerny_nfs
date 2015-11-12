@@ -37,3 +37,10 @@ node['nfs']['port'].each do |_, port|
     notifies :reload, 'service[firewalld]', :delayed
   end
 end
+
+nfs_export '/exports' do
+  network '172.16.200.0/24'
+  writeable true
+  sync true
+  options %w( no_root_squash no_all_squash fsid=0 )
+end
