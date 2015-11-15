@@ -53,16 +53,16 @@ end
 #   options %w( no_root_squash no_all_squash fsid=0 )
 # end
 
-nfs_export '/exports/iso' do
-  network %w( 172.16.200.0/24 192.168.200.0/24 192.168.100.0/24 )
-  writeable true
-  sync true
-  options %w( no_root_squash )
-end
-
-nfs_export '/exports/vcenter' do
-  network %w( 172.16.200.21 172.16.200.22 )
-  writeable true
-  sync true
-  options %w( no_root_squash )
-end
+# nfs_export '/exports/iso' do
+#   network %w( 172.16.200.0/24 192.168.200.0/24 192.168.100.0/24 )
+#   writeable true
+#   sync true
+#   options %w( no_root_squash )
+# end
+#
+# nfs_export '/exports/vcenter' do
+#   network %w( 172.16.200.21 172.16.200.22 )
+#   writeable true
+#   sync true
+#   options %w( no_root_squash )
+# end
