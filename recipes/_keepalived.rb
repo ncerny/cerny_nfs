@@ -42,6 +42,8 @@ execute 'setenforce Permissive' do
   only_if 'getenforce | grep Enforcing'
 end
 
+directory '/var/log/keepalived'
+
 include_recipe 'sysctl::default'
 
 package 'keepalived'
