@@ -20,7 +20,14 @@
 
 directory '/etc/exports.d'
 
-file '/etc/exports.d/vmware' do
-  content '/exports/nfs/vmware 172.16.200.21(rw,sync,no_root_squash,fsid=1) 172.16.200.22(rw,sync,no_root_squash,fsid=1)'
-  notifies :reload, 'service[nfs-server]', :delayed
+file '/etc/exports' do
+  content <<-EOF
+    /exports/nfs/vmware 172.16.200.21(rw,sync,no_root_squash,fsid=1) 172.16.200.22(rw,sync,no_root_squash,fsid=1)
+  EOF
+  notifies :run, 'execute[exportfs -ra]', :delayed
+end
+
+execute 'exportfs -ra' do
+  action :nothing
+  only_if 'systemctl status nfs-server'
 end
