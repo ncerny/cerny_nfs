@@ -16,6 +16,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Temporarily turn off selinux until I can figure out how to allow keepalived's
+# notify script to call rbd successfully.
+# rubocop:disable LineLength
+file '/etc/selinux/config' do
+  content <<-EOF
+    # This file controls the state of SELinux on the system.
+    # SELINUX= can take one of these three values:
+    #     enforcing - SELinux security policy is enforced.
+    #     permissive - SELinux prints warnings instead of enforcing.
+    #     disabled - No SELinux policy is loaded.
+    SELINUX=permissive
+    # SELINUXTYPE= can take one of three two values:
+    #     targeted - Targeted processes are protected,
+    #     minimum - Modification of targeted policy. Only selected processes are protected.
+    #     mls - Multi Level Security protection.
+    SELINUXTYPE=targeted
+  EOF
+  user 'root'
+  group 'root'
+  mode '0644'
+end
+
+execute 'setenforce Permissive' do
+  only_if 'getenforce | grep Enforcing'
+end
+
 include_recipe 'sysctl::default'
 
 package 'keepalived'
