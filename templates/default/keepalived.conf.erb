@@ -1,0 +1,18 @@
+global_defs {
+  router_id ceph02.cerny.cc
+}
+vrrp_instance 50 {
+  virtual_router_id 50
+  advert_int 1
+  authentication {
+    auth_type PASS
+    auth_pass AaLpMLzC1
+  }
+  priority 100
+  state BACKUP
+  interface br0
+  virtual_ipaddress {
+    172.16.200.30/24 dev br0
+  }
+  notify /usr/local/bin/keepalived_notify.sh
+}
