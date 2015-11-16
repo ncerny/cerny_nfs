@@ -78,25 +78,5 @@ node['nfs']['port'].each do |_, port|
   end
 end
 
-nfs_export '/exports/nfs' do
-  network '*'
-  writeable false
-  sync true
-  options %w( no_root_squash no_all_squash fsid=0 )
-end
-
-nfs_export '/exports/nfs/iso' do
-  network '*'
-  writeable true
-  sync true
-  options %w( no_root_squash no_all_squash fsid=1 )
-end
-
-nfs_export '/exports/nfs/vmware' do
-  network %w( 172.16.200.21 172.16.200.22 )
-  writeable true
-  sync true
-  options %w( no_root_squash no_all_squash fsid=2 )
-end
-
 include_recipe 'cerny_nfs::_keepalived'
+include_recipe 'cerny_nfs::_nfs_exports'

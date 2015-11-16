@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cerny_nfs
-# Recipe:: server
+# Recipe:: _keepalived
 #
 # Copyright 2015 Nathan Cerny
 #
