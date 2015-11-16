@@ -33,6 +33,7 @@ package 'nfs-kernel-server' if node['platform_family'] == 'debian'
 
 # Configure nfs-server components
 template node['nfs']['config']['server_template'] do
+  cookbook 'nfs'
   source 'nfs.erb'
   mode 00644
   notifies :restart, "service[#{node['nfs']['service']['server']}]"
