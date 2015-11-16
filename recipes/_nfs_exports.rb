@@ -21,12 +21,10 @@
 directory '/etc/exports.d'
 
 file '/etc/exports' do
-  case node['fqdn']
-  when 'ceph03.cerny.cc' then
-    content '/exports/nfs/iso 172.16.200.21(rw,sync,no_root_squash,fsid=2) 172.16.200.22(rw,sync,no_root_squash,fsid=2)'
-  else
-    content '/exports/nfs/vmware 172.16.200.21(rw,sync,no_root_squash,fsid=1) 172.16.200.22(rw,sync,no_root_squash,fsid=1)'
-  end
+  content <<-EOF
+    /exports/nfs/vmware 172.16.200.21(rw,sync,no_root_squash,fsid=1) 172.16.200.22(rw,sync,no_root_squash,fsid=1)
+    /exports/iso 172.16.200.21(rw,sync,no_root_squash,fsid=2) 172.16.200.22(rw,sync,no_root_squash,fsid=2)
+  EOF
   notifies :run, 'execute[exportfs -ra]', :delayed
 end
 
