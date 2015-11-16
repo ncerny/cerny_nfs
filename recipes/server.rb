@@ -57,6 +57,7 @@ end
 service node['nfs']['service']['server'] do
   action :nothing
   supports status: true
+  only_if 'systemctl status nfs-server'
 end
 # ****
 # END NFS Cookbook
