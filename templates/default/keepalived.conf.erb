@@ -1,5 +1,5 @@
 global_defs {
-  router_id <%= router_id %>
+  router_id <%= node['fqdn'] %>
 }
 vrrp_instance 50 {
   virtual_router_id 50

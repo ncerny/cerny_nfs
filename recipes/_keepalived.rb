@@ -56,7 +56,6 @@ template '/etc/keepalived/keepalived.conf' do
   group 'root'
   mode '0750'
   action :create
-  variables router_id: node['fqdn']
   notifies :reload, 'service[keepalived]', :delayed
 end
 
