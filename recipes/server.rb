@@ -28,33 +28,25 @@ end
 # ****
 # From NFS Cookbook
 # ****
-# Install server components for Debian
-package 'nfs-kernel-server' if node['platform_family'] == 'debian'
 
-# Configure nfs-server components
 template node['nfs']['config']['server_template'] do
   cookbook 'nfs'
   source 'nfs.erb'
   mode 00644
-  notifies :restart, "service[#{node['nfs']['service']['server']}]"
+  notifies :restart, 'service[nfs-server]'
 end
 
-# RHEL7 has some extra requriements per
-# https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Storage_Administration_Guide/nfs-serverconfig.html#s2-nfs-nfs-firewall-config
-if node['platform_family'] == 'rhel' && node['platform_version'].to_f >= 7.0 && !node['platform'] == 'amazon'
-  include_recipe 'sysctl::default'
+include_recipe 'sysctl::default'
 
-  sysctl_param 'fs.nfs.nlm_tcpport' do
-    value node['nfs']['port']['lockd']
-  end
-
-  sysctl_param 'fs.nfs.nlm_udpport' do
-    value node['nfs']['port']['lockd']
-  end
+sysctl_param 'fs.nfs.nlm_tcpport' do
+  value node['nfs']['port']['lockd']
 end
 
-# Start nfs-server components
-service node['nfs']['service']['server'] do
+sysctl_param 'fs.nfs.nlm_udpport' do
+  value node['nfs']['port']['lockd']
+end
+
+service 'nfs-server' do
   action :nothing
   supports status: true
   only_if 'systemctl status nfs-server'
