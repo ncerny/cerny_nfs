@@ -70,8 +70,8 @@ end
 firewalld_rich_rule 'keepalived_mcast' do
   zone 'internal'
   family 'ipv4'
-  destination_address '224.0.0.18'
-  firewall_action 'accept'
+  destination_address '224.0.0.18/32'
+  firewall_action 'protocol value="ip" accept'
   action :add
 end
 
